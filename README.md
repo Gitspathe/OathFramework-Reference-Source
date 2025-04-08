@@ -36,7 +36,7 @@ namespace OathFramework.Core
     
         public static bool VerifySecret(ulong secret)
         {
-            return secret == 0;
+            return false;
         }
     }
 }
