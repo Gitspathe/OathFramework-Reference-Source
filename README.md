@@ -1,6 +1,6 @@
 # Disclaimer
-This repo is for public access to the code of OathFramework and Magitech Requiem. It is not a complete project, and you WILL get compile errors without making your own changes. With that being said, the code is fairly modular, so you are free to learn and/or take peices of the code for your own projects.
-If you want to compile your own version, the following assets and changes are needed.
+This repo is for public access to the code of OathFramework and Magitech Requiem. It is not a complete project, and you WILL get compile errors without making your own changes. With that being said, the code is fairly modular, so you are free to learn and/or take pieces of the code for your own projects.
+If you want to compile your own version, the following assets and changes are needed:
 - MicroSplat and MicroSplat for URP 2022.3
 - FinalIK
 - Basic replacement for "Scripts/OathFramework/Core/SupporterDLCUtil.cs", which is excluded due to containing secrets. (see below)
