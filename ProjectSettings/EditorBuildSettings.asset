@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1045 &1
+EditorBuildSettings:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/_PRELOAD.unity
+    guid: 18b45256303417744ac597caa7d85d7f
+  - enabled: 1
+    path: Assets/Scenes/_MAIN.unity
+    guid: d9bee3605d95e4c4e9bb94630e0bd646
+  - enabled: 1
+    path: Assets/Scenes/Main Menu.unity
+    guid: d3e737a475a65f14bb89b1a61962a59a
+  - enabled: 1
+    path: Assets/Scenes/test_level_proc_gen.unity
+    guid: 1946caabb51a1fc51bb3ad7027c9dc36
+  - enabled: 1
+    path: Assets/Scenes/test_level.unity
+    guid: 679754e94544ae940a1f69890d655144
+  - enabled: 1
+    path: Assets/Scenes/DEBUG/_debug_ragdoll.unity
+    guid: f6a190e5bc09d4c138a368fc2af444ff
+  - enabled: 1
+    path: Assets/Scenes/DEBUG/_debug_level_menu_oldver.unity
+    guid: c3ff4ee157235b0478deb655c84037fb
+  - enabled: 1
+    path: Assets/Scenes/DEBUG/_debug_main_oldver.unity
+    guid: 151cb47a5df4b274d8fe37b87e22838b
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 026657a3dadb69568900e362b6cd088f,
+      type: 2}
+    com.unity.input.settings: {fileID: 11400000, guid: 52eedc0f1601b83489d98a289cae2bc9,
+      type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 4002832bcb2669045a9ff08b25c3657f,
+      type: 3}
+    com.unity.localization.settings: {fileID: 11400000, guid: 03b93aea0c8d7479fb6dc91740fe0104,
+      type: 2}

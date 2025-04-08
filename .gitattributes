@@ -1,0 +1,48 @@
+## Unity ##
+
+*.[cC][sS] diff=csharp text
+*.[cC][gG][iI][nN][cC] text
+*.[sS][hH][aA][dD][eE][rR] text
+*.[uU][nN][iI][tT][yY] merge=unityyamlmerge eol=lf
+*.[pP][rR][eE][fF][aA][bB] merge=unityyamlmerge eol=lf
+## git-lfs ##
+#Occlusion Culling
+OcclusionCullingData.asset filter=lfs diff=lfs merge=lfs -text
+#Image
+*.[jJ][pP][gG] filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][eE][gG] filter=lfs diff=lfs merge=lfs -text
+*.[pP][nN][gG] filter=lfs diff=lfs merge=lfs -text
+*.[gG][iI][fF] filter=lfs diff=lfs merge=lfs -text
+*.[pP][sS][dD] filter=lfs diff=lfs merge=lfs -text
+*.[aA][iI] filter=lfs diff=lfs merge=lfs -text
+*.[bB][mM][pP] filter=lfs diff=lfs merge=lfs -text
+*.[tT][iI][fF][fF] filter=lfs diff=lfs merge=lfs -text
+#Audio
+*.[mM][pP]3 filter=lfs diff=lfs merge=lfs -text
+*.[wW][aA][vV] filter=lfs diff=lfs merge=lfs -text
+*.[oO][gG][gG] filter=lfs diff=lfs merge=lfs -text
+#Video
+*.[mM][pP]4 filter=lfs diff=lfs merge=lfs -text
+*.[mM][oO][vV] filter=lfs diff=lfs merge=lfs -text
+#3D Object
+*.[fF][bB][xX] filter=lfs diff=lfs merge=lfs -text
+*.[bB][lL][eE][nN][dD] filter=lfs diff=lfs merge=lfs -text
+*.[oO][bB][jJ] filter=lfs diff=lfs merge=lfs -text
+#ETC
+*.[aA] filter=lfs diff=lfs merge=lfs -text
+*.[eE][xX][rR] filter=lfs diff=lfs merge=lfs -text
+*.[tT][gG][aA] filter=lfs diff=lfs merge=lfs -text
+*.[pP][dD][fF] filter=lfs diff=lfs merge=lfs -text
+*.[zZ][iI][pP] filter=lfs diff=lfs merge=lfs -text
+*.[dD][lL][lL] filter=lfs diff=lfs merge=lfs -text
+*.[uU][nN][iI][tT][yY][pP][aA][cC][kK][aA][gG][eE] filter=lfs diff=lfs merge=lfs -text
+*.[aA][iI][fF] filter=lfs diff=lfs merge=lfs -text
+*.[tT][tT][fF] filter=lfs diff=lfs merge=lfs -text
+*.[rR][nN][sS] filter=lfs diff=lfs merge=lfs -text
+*.[rR][eE][aA][sS][oO][nN] filter=lfs diff=lfs merge=lfs -text
+*.[lL][xX][oO] filter=lfs diff=lfs merge=lfs -text
+#ARCHIVE
+*.7[zZ] filter=lfs diff=lfs merge=lfs -text
+*.[zZ][iI][pP] filter=lfs diff=lfs merge=lfs -text
+*.[tT][aA][rR].[gG][zZ] filter=lfs diff=lfs merge=lfs -text
+*.[rR][aA][rR] filter=lfs diff=lfs merge=lfs -text
