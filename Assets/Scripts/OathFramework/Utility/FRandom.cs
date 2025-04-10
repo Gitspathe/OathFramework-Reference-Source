@@ -9,31 +9,41 @@ namespace OathFramework.Utility
     // Do not switch to struct. It breaks shit.
     public sealed class FRandom
     {
-        private int x;
+        private uint x;
         
-        private static readonly ThreadLocal<FRandom> InternalCache = new(() => new FRandom(Random.Range(0, int.MaxValue)));
+        private static readonly ThreadLocal<FRandom> InternalCache = new(() => new FRandom((uint)Random.Range(0, uint.MaxValue)));
 
-        public int Seed { get; }
+        public uint Seed { get; }
 
         public static FRandom Cache => InternalCache.Value;
 
-        public FRandom(int seed = 0)
+        public FRandom(uint seed = 0)
         {
             if(seed == 0) { 
-                seed = Random.Range(0, int.MaxValue);
+                seed = (uint)Random.Range(0, uint.MaxValue);
             }
             x    = seed;
             Seed = seed;
         }
 
+        public uint UInt()
+        {
+            x      = unchecked(214013 * x + 2531011);
+            uint y = x & 0x7FFFFFFF;
+            y     ^= y >> 13;
+            y     ^= y << 17;
+            y     ^= y >> 5;
+            return y;
+        }
+
         public int Int()
         {
-            x     = 214013 * x + 2531011;
-            int y = x & 0x7FFFFFFF;
-            y    ^= y >> 13;
-            y    ^= y << 17;
-            y    ^= y >> 5;
-            return y & 0x7FFFFFFF;
+            x      = 214013 * x + 2531011;
+            uint y = x & 0x7FFFFFFF;
+            y     ^= y >> 13;
+            y     ^= y << 17;
+            y     ^= y >> 5;
+            return (int)(y & 0x7FFFFFFF);
         }
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)]

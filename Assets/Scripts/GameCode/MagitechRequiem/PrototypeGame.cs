@@ -31,7 +31,7 @@ namespace GameCode.MagitechRequiem
         
         private void Update()
         {
-            if(!IsOwner)
+            if(!IsOwner || !IsSpawned)
                 return;
             
             curTime += Time.deltaTime;

@@ -8,7 +8,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Unnamed
-    /// Increases damage against incapacitated enemies by 12%.
+    /// Increases damage against incapacitated enemies by 15%.
     /// </summary>
     public class Perk17 : Perk
     {
@@ -16,7 +16,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk17.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "amt", "12" } };
+            => new() { { "amt", "15" } };
 
         private Callback callback = new();
         
@@ -50,7 +50,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
             void IEntityPreDealDamageCallback.OnPreDealDamage(Entity source, Entity target, bool isTest, ref DamageValue damageVal)
             {
                 if(target.States.HasState(Stunned.Instance)) {
-                    damageVal.Amount = (ushort)(damageVal.Amount * 1.12f);
+                    damageVal.Amount = (ushort)(damageVal.Amount * 1.15f);
                 }
             }
         }

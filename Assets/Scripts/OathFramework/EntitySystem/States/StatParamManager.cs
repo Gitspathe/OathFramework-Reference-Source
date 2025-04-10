@@ -41,6 +41,7 @@ namespace OathFramework.EntitySystem.States
             Register<AccuracyMult>();
             Register<ProjectileSpeedMult>();
             Register<ExplosiveRangeMult>();
+            Register<MaxRangeMult>();
             Register<StaminaRegen>();
             Register<StaminaRegenDelay>();
             Register<DodgeStaminaUse>();
@@ -52,6 +53,7 @@ namespace OathFramework.EntitySystem.States
             Register<QuickHealCharges>();
             Register<QuickHealAmount>();
             Register<QuickHealSpeedMult>();
+            Register<AbilityUseSpeedMult>();
             return UniTask.CompletedTask;
         }
         

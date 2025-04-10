@@ -14,7 +14,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Heal and Defy
-    /// Quick heal buffs allies within 15 meters with +25% attack damage for 5 seconds.
+    /// Quick heal buffs allies within 16 meters with +25% attack damage for 5 seconds.
     /// However, the HP restored is reduced by 70%.
     /// </summary>
     public class Perk16 : Perk
@@ -23,7 +23,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk16.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "range", "15" }, { "amt", "25%" }, { "duration", "5" }, { "heal_reduction", "70%" } };
+            => new() { { "range", "16" }, { "amt", "25%" }, { "duration", "5" }, { "heal_reduction", "70%" } };
 
         private Callback callback = new();
         
@@ -61,15 +61,15 @@ namespace GameCode.MagitechRequiem.Data.Perks
                 if(auxOnly)
                     return;
                 
-                entityCache.Clear();
                 handler.Entity.Targeting.GetDistances(entityCache, handler.Entity.Team);
                 for(int i = 0; i < entityCache.Count; i++) {
                     EntityDistance dist = entityCache.Array[i];
-                    if(dist.Distance > 15.0f)
+                    if(dist.Distance > 16.0f)
                         continue;
                     
                     dist.Entity.States.AddState(new EntityState(Perk16State.Instance), applyStats: false);
                 }
+                entityCache.Clear();
             }
         }
     }

@@ -3,6 +3,7 @@ using OathFramework.Effects;
 using OathFramework.Extensions;
 using OathFramework.Utility;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 
 namespace OathFramework.EntitySystem
@@ -93,6 +94,16 @@ namespace OathFramework.EntitySystem
             }
             
             DamageValue val = damageValue.Value;
+            IEntity entity  = hit.Entity;
+            Entity derived  = entity as Entity;
+            bool isDerived  = !ReferenceEquals(derived, null);
+            if(entity == null)
+                return;
+            
+            // Handle dodged attack.
+            if(WasDodge(hit, val) && isDerived && derived.TryGetComponent(out DodgeHandler dodge) && !hits.Contains(entity)) {
+                dodge.DodgedAttack(in val);
+            }
             
             // Ignoring HitBox flags.
             if(hit.IgnoreMelee && val.Source == DamageSource.Melee)
@@ -100,13 +111,10 @@ namespace OathFramework.EntitySystem
             if(hit.IgnoreProjectile && val.Source == DamageSource.Projectile)
                 return;
             
-            IEntity entity = hit.Entity;
-            Entity derived = entity as Entity;
-            bool isDerived = !ReferenceEquals(derived, null);
             bool hasSrc    = val.GetInstigator(out Entity srcEntity);
 
             // Ignore list and teams check.
-            if(entity == null || !targetTypes.Contains(entity.Team) || ignore.Contains(entity) || !hits.Add(entity))
+            if(!targetTypes.Contains(entity.Team) || ignore.Contains(entity) || !hits.Add(entity))
                 return;
             
             // Union check.
@@ -192,6 +200,17 @@ namespace OathFramework.EntitySystem
                 modVal.Amount   *= (ushort)Mathf.Clamp(ignoreHitBoxMultiplier ? 1.0f : hit.DamageMultiplier, 0.0f, ushort.MaxValue);
                 callbacks.Access.OnHealedEntity(callbackAccessToken, entity, in modVal);
             }
+        }
+        
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        private bool WasDodge(HitBox hit, in DamageValue damageVal)
+        {
+            if(hit.IgnoreMelee && !hit.DefaultIgnoreMelee && damageVal.Source == DamageSource.Melee)
+                return true;
+            if(hit.IgnoreProjectile && !hit.DefaultIgnoreProjectile && damageVal.Source == DamageSource.Projectile)
+                return true;
+
+            return false;
         }
 
         public void Activate()

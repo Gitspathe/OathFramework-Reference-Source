@@ -213,7 +213,7 @@ namespace OathFramework.EquipmentSystem
                 if(iAcc.MoveAccuracyPenalty > 0.001f && iAcc.MoveAccuracyPenaltyTime > 0.001f) {
                     float malus     = Mathf.Clamp(controller.TimeSinceMoving, 0.001f, iAcc.MoveAccuracyPenaltyTime) / iAcc.MoveAccuracyPenaltyTime;
                     float magnitude = iAcc.MoveAccuracyPenalty * (1.0f - malus);
-                    accuracy -= magnitude;
+                    accuracy       -= magnitude;
                 }
 
                 // Recoil & accuracy.
@@ -222,8 +222,8 @@ namespace OathFramework.EquipmentSystem
                 float inaccHeight   = EquippableManager.RollInaccuracyHeight(accuracy);
                 float yVarRand      = inaccHeight + baseYVariance + EquippableManager.RollRecoilHeight(equipment.CurRecoil);
                 float varAngle      = inaccAngle + EquippableManager.RollRecoilAngle(equipment.CurRecoil);
-                varAngle /= equipment.CurEntityStats.GetParam(AccuracyMult.Instance);
-                yVarRand /= equipment.CurEntityStats.GetParam(AccuracyMult.Instance);
+                varAngle           /= equipment.CurEntityStats.GetParam(AccuracyMult.Instance);
+                yVarRand           /= equipment.CurEntityStats.GetParam(AccuracyMult.Instance);
 
                 // Y correction.
                 aimPos   = new Vector3(aimPos.x, equipment.ProjectileSpawnY + yVarRand, aimPos.z);

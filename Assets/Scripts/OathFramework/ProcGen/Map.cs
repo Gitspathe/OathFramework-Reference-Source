@@ -24,7 +24,7 @@ namespace OathFramework.ProcGen
         private readonly LockableOrderedList<IPostInstantiationCallback> postTilesInstantiated = new();
         
         public MapConfig Config { get; private set; }
-        public int Seed         { get; private set; }
+        public uint Seed         { get; private set; }
         public Tile[] Tiles     { get; private set; }
         public ushort SizeX     { get; private set; }
         public ushort SizeY     { get; private set; }
@@ -71,11 +71,15 @@ namespace OathFramework.ProcGen
             }
             Stopwatch s = new();
             s.Start();
-            _ = Initialize(s, testConfig, FRandom.Cache.Int());
+            _ = Initialize(s, testConfig, FRandom.Cache.UInt());
         }
 
-        public async UniTask Initialize(Stopwatch timer, MapConfig config, int seed, CancellationToken ct = default)
+        public async UniTask Initialize(Stopwatch timer, MapConfig config, uint seed, CancellationToken ct = default)
         {
+            if(Game.ExtendedDebug) {
+                Debug.Log($"Generating map with seed: {seed}");
+            }
+
             rand   = new FRandom(seed);
             Config = config.DeepCopy();
             Seed   = seed;
@@ -136,6 +140,10 @@ namespace OathFramework.ProcGen
             await GenerateNavMesh(timer, ct);
             
             LoadingUIScript.SetProgress(NetGame.Msg.WaitingForOthersStr, 1.0f);
+            
+            // GC and clean up assets.
+            Resources.UnloadUnusedAssets();
+            GC.Collect();
         }
         
         private async UniTask Instantiate(Stopwatch timer, CancellationToken ct = default)
@@ -203,7 +211,7 @@ namespace OathFramework.ProcGen
                 List<NavMeshBuildMarkup> markup       = new();
                 Bounds bounds = new(
                     new Vector3((SizeX * Config.TileSize) / 2, 0.0f, -((SizeY * Config.TileSize) / 2)),
-                    new Vector3(SizeX * Config.TileSize, 1000.0f, SizeY * Config.TileSize)
+                    new Vector3((SizeX * Config.TileSize) + 100.0f, 1000.0f, (SizeY * Config.TileSize) + 100.0f)
                 );
                 NavMeshBuilder.CollectSources(
                     bounds,

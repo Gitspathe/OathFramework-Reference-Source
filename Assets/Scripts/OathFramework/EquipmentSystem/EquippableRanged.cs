@@ -1,3 +1,4 @@
+using OathFramework.Data.StatParams;
 using OathFramework.Effects;
 using OathFramework.EntitySystem;
 using OathFramework.EntitySystem.Projectiles;
@@ -147,6 +148,8 @@ namespace OathFramework.EquipmentSystem
                 ? ProjectileSpeed 
                 : ProjectileSpeed * rand.Range(1.0f - ProjectileSpeedRand, 1.0f + ProjectileSpeedRand);
 
+            float maxDist = MaxRange * source.CurStats.GetParam(MaxRangeMult.Instance);
+
             StdBulletData data = StdBulletData.Retrieve();
             data.SetData(
                 source,
@@ -157,7 +160,7 @@ namespace OathFramework.EquipmentSystem
                 Mathf.Clamp(adjSpeed, 1.0f, ushort.MaxValue + 1.0f),
                 Mathf.Clamp(Penetration, 1.0f, float.MaxValue),
                 Mathf.Clamp(MinRange, 1.0f, float.MaxValue),
-                Mathf.Clamp(MaxRange, 1.0f, float.MaxValue),
+                Mathf.Clamp(maxDist, 1.0f, float.MaxValue),
                 StaggerStrength,
                 StaggerAmount,
                 DamageCurve,

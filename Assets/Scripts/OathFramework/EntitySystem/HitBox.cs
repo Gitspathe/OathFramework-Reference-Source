@@ -20,7 +20,9 @@ namespace OathFramework.EntitySystem
             get => damageMultiplier; 
             set => damageMultiplier = value;
         }
-        
+
+        public bool DefaultIgnoreMelee => (HitBoxFlags.IgnoreMelee & DefaultFlags) != 0;
+
         public bool IgnoreMelee {
             get => (HitBoxFlags.IgnoreMelee & flags) != 0;
             set {
@@ -31,6 +33,8 @@ namespace OathFramework.EntitySystem
                 }
             }
         }
+        
+        public bool DefaultIgnoreProjectile => (HitBoxFlags.IgnoreProjectile & DefaultFlags) != 0;
 
         public bool IgnoreProjectile {
             get => (HitBoxFlags.IgnoreProjectile & flags) != 0;
@@ -42,6 +46,8 @@ namespace OathFramework.EntitySystem
                 }
             }
         }
+        
+        public bool IsDodging { get; set; }
         
         [field: SerializeField] public HitSurfaceMaterial Material { get; private set; }
         
@@ -66,7 +72,8 @@ namespace OathFramework.EntitySystem
 
         public void RestoreFlags()
         {
-            flags = DefaultFlags;
+            IsDodging = false;
+            flags     = DefaultFlags;
         }
 
         public void OnDeath()

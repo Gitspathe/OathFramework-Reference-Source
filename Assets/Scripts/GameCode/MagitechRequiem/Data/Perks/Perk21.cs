@@ -14,7 +14,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Gunslinger
-    /// Killing an enemy with a pistol grants +10% damage bonus to your next pistol shot. Stacks 3 times. All stacks are lost upon swapping weapons.
+    /// Killing an enemy with a pistol grants +20% damage bonus to your next pistol shot. Stacks 3 times. All stacks are lost upon swapping weapons.
     /// </summary>
     public class Perk21 : Perk
     {
@@ -22,7 +22,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk21.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "amt", "10" }, { "max_stacks", "3" }, { "duration", "30" } };
+            => new() { { "amt", "20" }, { "max_stacks", "3" }, { "duration", "30" } };
 
         private Dictionary<Entity, Callback> callbacks = new();
         private HashSet<string> appliesTo = new() {
@@ -160,7 +160,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
                 if(!source.States.TryGetValue(Instance, out ushort stacks) || stacks == 0)
                     return;
 
-                damageVal.Amount = (ushort)Mathf.Clamp(damageVal.Amount * (1.0f + (stacks * 0.1f)), 0.0f, ushort.MaxValue);
+                damageVal.Amount = (ushort)Mathf.Clamp(damageVal.Amount * (1.0f + (stacks * 0.2f)), 0.0f, ushort.MaxValue);
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using OathFramework.Core;
 using OathFramework.EntitySystem.Players;
 using OathFramework.UI;
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,6 +39,7 @@ namespace OathFramework.Utility
 	    private Vector3 desiredPosition;
 	    private Plane plane;
         private const float CircleRadius = 5.0f;
+        private RaycastHit[] cacheHits   = new RaycastHit[32];
 
         public static CameraController Instance { get; private set; }
 
@@ -73,12 +75,12 @@ namespace OathFramework.Utility
             if(Game.IsQuitting || Target == null || Target.CamFollowTransform == null)
                 return;
 
-            Vector3 targetPos  = Target.CamFollowTransform.position;
-            UpdateTransform(targetPos);
+            Vector3 targetPos = Target.CamFollowTransform.position;
+            UpdateTransform();
             UpdateAim(targetPos);
         }
 
-        private void UpdateTransform(Vector3 targetPos)
+        private void UpdateTransform()
         {
             CheckObstruction();
             SmoothMoveCamera();
@@ -90,9 +92,20 @@ namespace OathFramework.Utility
                 return;
 
             Vector3 checkPosition = Target.CamFollowTransform.position + angledOffset + obstructionBuffer;
-            Ray     ray           = new(checkPosition, Target.CamFollowTransform.position - checkPosition);
-            isObscured            = Physics.Raycast(ray, Vector3.Distance(checkPosition, Target.CamFollowTransform.position), obstructionMask);
-            targetOffset          = isObscured ? topDownOffset : angledOffset;
+            Ray ray               = new(checkPosition, Target.CamFollowTransform.position - checkPosition);
+            float dist            = Vector3.Distance(checkPosition, Target.CamFollowTransform.position);
+            int hits              = Physics.RaycastNonAlloc(ray, cacheHits, dist, obstructionMask);
+            isObscured            = false;
+            for(int i = 0; i < hits; i++) {
+                RaycastHit hit = cacheHits[i];
+                if(hit.collider.TryGetComponent(out IgnoreCameraAdjustment _))
+                    continue;
+
+                isObscured = true;
+                break;
+            }
+            targetOffset = isObscured ? topDownOffset : angledOffset;
+            Array.Clear(cacheHits, 0, hits);
         }
 
         private void SmoothMoveCamera()

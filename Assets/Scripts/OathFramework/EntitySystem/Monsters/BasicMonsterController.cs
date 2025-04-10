@@ -68,8 +68,8 @@ namespace OathFramework.EntitySystem.Monsters
                     continue;
                 
                 float rating = 1000;
-                rating -= entityDist.Distance * 5.0f;
-                rating -= entityDist.Entity.Targeting.TargetedLevel;
+                rating      -= entityDist.Distance * 5.0f;
+                rating      -= entityDist.Entity.Targeting.TargetedLevel;
                 if(Entity.Targeting.CurrentTarget == entityDist.Entity) {
                     rating += 50;
                 }

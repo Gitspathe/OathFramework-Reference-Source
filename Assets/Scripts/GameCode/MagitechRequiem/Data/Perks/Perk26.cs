@@ -11,7 +11,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Adrenaline Surge
-    /// Upon reloading, begin regenerating stamina immediately. Additionally, run 20% faster while reloading.
+    /// Upon reloading, begin regenerating stamina immediately. Additionally, run 15% faster while reloading.
     /// </summary>
     public class Perk26 : Perk
     {
@@ -19,7 +19,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk26.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "speed_amt", "20" } };
+            => new() { { "speed_amt", "15" } };
 
         private Callback callback = new();
         public static Perk26 Instance { get; private set; }
@@ -86,7 +86,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 
         protected override void OnApplyStatChanges(Entity entity, bool lateJoin, ushort val)
         {
-            entity.CurStats.speed *= 1.2f;
+            entity.CurStats.speed *= 1.15f;
         }
 
         void IUpdateable.Update()

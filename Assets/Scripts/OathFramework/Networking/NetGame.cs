@@ -45,8 +45,8 @@ namespace OathFramework.Networking
         public static NetGameMsg Msg { get; private set; }
 
         private static Dictionary<ulong, ConnectionData> connectionDatas = new();
-        private static HashSet<ulong> connecting                             = new();
-        private static bool gameInProgressCheck                              = true;
+        private static HashSet<ulong> connecting                         = new();
+        private static bool gameInProgressCheck                          = true;
         private static bool expectedDisconnect;
         private static float initialSyncTime;
         private static CancellationTokenSource netCts;
@@ -455,7 +455,6 @@ namespace OathFramework.Networking
                 case SceneEventType.LoadEventCompleted: {
                     ClientLoadCompleted();
                     if(Manager.IsServer) {
-                        GameServices.PlayerSpawn.FindSpawnAreas();
                         foreach(ulong clientID in sceneEvent.ClientsThatTimedOut) {
                             if(!PlayerManager.TryGetPlayerFromNetID(clientID, out NetClient timedOut))
                                 continue;
@@ -538,7 +537,7 @@ namespace OathFramework.Networking
             ConnectionService.OnKickPlayer(client, reason);
         }
 
-        public NetScene CreateNetScene(MapConfig config, int seed)
+        public NetScene CreateNetScene(MapConfig config, uint seed)
         {
             if(!IsServer) {
                 Debug.LogError($"Only the server can instantiate {nameof(NetScene)}.");

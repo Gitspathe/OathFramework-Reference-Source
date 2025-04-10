@@ -11,13 +11,11 @@ namespace OathFramework.Core
     {
         [SerializeField] private string sceneName;
         [SerializeField] private SceneType type;
-        [SerializeField] private GameObject spawnsParent;
 
         public abstract GeoType GeoType { get; }
         
         public string SceneName            => sceneName;
         public SceneType Type              => type;
-        public GameObject SpawnsParent     => spawnsParent;
         public PersistentScene Persistence => persistentBehaviour == null ? null : persistentBehaviour.Scene;
         
         protected NetScene NetScene;

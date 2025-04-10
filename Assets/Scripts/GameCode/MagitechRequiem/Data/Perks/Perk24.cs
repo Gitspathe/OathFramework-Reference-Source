@@ -7,7 +7,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Gambit
-    /// Taking damage lowers the cooldown of your abilities, at a conversion rate of 100 damage per second.
+    /// Taking damage lowers the cooldown of your abilities, at a conversion rate of 60 damage per second.
     /// </summary>
     public class Perk24 : Perk
     {
@@ -15,7 +15,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk24.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "conversion", "100" } };
+            => new() { { "conversion", "60" } };
 
         private Callback callback = new();
         public static Perk24 Instance { get; private set; }
@@ -47,7 +47,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 
             void IEntityTakeDamageCallback.OnDamage(Entity entity, bool fromRpc, in DamageValue val)
             {
-                float amt = val.Amount / 100.0f;
+                float amt = (float)val.Amount / 60.0f;
                 entity.Abilities.AddChargeProgress(amt);
             }
         }

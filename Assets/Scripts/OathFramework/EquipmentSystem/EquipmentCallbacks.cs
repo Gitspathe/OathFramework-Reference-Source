@@ -28,7 +28,7 @@ namespace OathFramework.EquipmentSystem
         public void Unregister(IEquipmentReloadCallback callback) => reloadCallbacks.Remove(callback);
         public void Unregister(IEquipmentBeginReloadCallback callback) => beginReloadCallbacks.Remove(callback);
 
-        public class EquipmentCallbacksAccessor : CallbackAccessor
+        public sealed class EquipmentCallbacksAccessor : CallbackAccessor
         {
             private EquipmentCallbacks callbacks;
             

@@ -26,6 +26,9 @@ namespace GameCode.MagitechRequiem.Data.States
             public static LookupValue Perk22State        { get; } = new("core:perk22state", 2012);
             public static LookupValue Perk23State        { get; } = new("core:perk23state", 2012);
             public static LookupValue Perk26State        { get; } = new("core:perk26state", 2013);
+            public static LookupValue Perk28State        { get; } = new("core:perk28state", 2014);
+            public static LookupValue Perk29State        { get; } = new("core:perk29state", 2015);
+            public static LookupValue Perk30State        { get; } = new("core:perk30state", 2016);
         }
     }
 }

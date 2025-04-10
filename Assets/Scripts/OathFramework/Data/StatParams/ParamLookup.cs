@@ -22,6 +22,7 @@ namespace OathFramework.Data.StatParams
             public static LookupValue AccuracyMult        { get; } = new("core:accuracy_mult",         140);
             public static LookupValue ProjectileSpeedMult { get; } = new("core:projectile_speed_mult", 150);
             public static LookupValue ExplosiveRangeMult  { get; } = new("core:explosive_range_mult",  160);
+            public static LookupValue MaxRangeMult        { get; } = new("core:max_range_mult",        170);
         }
 
         public static class Stamina
@@ -49,6 +50,11 @@ namespace OathFramework.Data.StatParams
             public static LookupValue Charges   { get; } = new("core:quick_heal_charges", 500);
             public static LookupValue Amount    { get; } = new("core:quick_heal_amount", 501);
             public static LookupValue SpeedMult { get; } = new("core:quick_heal_speed_mult", 502);
+        }
+
+        public static class Ability
+        {
+            public static LookupValue UseSpeedMult { get; } = new("core:ability_use_speed_mult", 600);
         }
     }
 }

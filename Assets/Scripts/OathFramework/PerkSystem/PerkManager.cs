@@ -54,6 +54,10 @@ namespace OathFramework.PerkSystem
             Register<Perk24>();
             Register<Perk25>();
             Register<Perk26>();
+            Register<Perk27>();
+            Register<Perk28>();
+            Register<Perk29>();
+            Register<Perk30>();
             return UniTask.CompletedTask;
         }
         

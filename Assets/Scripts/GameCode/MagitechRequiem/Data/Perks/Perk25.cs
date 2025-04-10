@@ -57,7 +57,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
                     return;
 
                 float amt        = missing * 0.03f;
-                damageVal.Amount = (ushort)Mathf.Clamp(damageVal.Amount * (1.0f + amt), 1.0f, ushort.MaxValue);
+                damageVal.Amount = (ushort)Mathf.Clamp(damageVal.Amount * (1.0f + amt), 0.0f, ushort.MaxValue);
             }
         }
     }

@@ -7,7 +7,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Vengeance
-    /// Boost damage dealt by 3% for every 10% of missing hp.
+    /// Boost damage dealt by 3.2% for every 10% of missing hp.
     /// </summary>
     public class Perk3 : Perk
     {
@@ -15,7 +15,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk3.DefaultID;
         
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new(){ {"amt", "3%"}, {"missing_hp", "10%"} };
+            => new(){ {"amt", "3.2%"}, {"missing_hp", "10%"} };
 
         private static DamageCallback Callback = new();
         public static Perk3 Instance { get; private set; }
@@ -51,7 +51,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
                     float missingPercent = 1.0f - ((float)entity.CurStats.health / (float)entity.CurStats.maxHealth);
                     stack = (int)(missingPercent * 10.0f);
                 }
-                val.Amount += (ushort)(val.Amount * 0.03f * stack);
+                val.Amount += (ushort)(val.Amount * 0.032f * stack);
             }
         }
     }

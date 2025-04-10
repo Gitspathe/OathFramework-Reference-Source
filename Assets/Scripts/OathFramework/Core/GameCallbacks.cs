@@ -40,7 +40,7 @@ namespace OathFramework.Core
         public static void Unregister(IGameQuitCallback callback) => quitCallbacks.Remove(callback);
         public static void Unregister(IGameExitCallback callback) => exitCallbacks.Remove(callback);
         
-        public class GameCallbacksAccess : CallbackAccessor
+        public sealed class GameCallbacksAccess : CallbackAccessor
         {
             public async UniTask OnGameInitialized(AccessToken token)
             {

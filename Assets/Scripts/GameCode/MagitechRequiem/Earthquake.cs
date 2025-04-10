@@ -29,7 +29,7 @@ namespace GameCode.MagitechRequiem
                 return;
 
             DamageValue val = new(
-                250, 
+                415, 
                 source.transform.position, 
                 DamageSource.Explosion, 
                 StaggerStrength.Medium, 

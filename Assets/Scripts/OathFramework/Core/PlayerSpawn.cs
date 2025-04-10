@@ -1,6 +1,8 @@
 using OathFramework.Extensions;
 using OathFramework.Core.Service;
+using System;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace OathFramework.Core
 {
@@ -8,6 +10,9 @@ namespace OathFramework.Core
     [RequireComponent(typeof(BoxCollider))]
     public class PlayerSpawn : MonoBehaviour
     {
+        [SerializeField] private bool registerOnEnable = true;
+        [SerializeField] private bool forceSingle;
+        
         private BoxCollider boxArea;
 
         public PlayerSpawnService Service => GameServices.PlayerSpawn;
@@ -15,6 +20,23 @@ namespace OathFramework.Core
         private void Awake()
         {
             boxArea = GetComponent<BoxCollider>();
+        }
+
+        private void OnEnable()
+        {
+            if(forceSingle && PlayerSpawnService.CurSpawnAreasCount > 0)
+                return;
+            
+            if(registerOnEnable) {
+                PlayerSpawnService.Instance.Register(this);
+            }
+        }
+
+        private void OnDisable()
+        {
+            if(registerOnEnable) {
+                PlayerSpawnService.Instance.Unregister(this);
+            }
         }
 
         public Vector3 GetRandomPointInsideCollider()

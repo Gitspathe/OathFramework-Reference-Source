@@ -7,7 +7,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Stoicism
-    /// Reduce damage by 3.5% for every 10% of missing hp.
+    /// Reduce damage by 3.6% for every 10% of missing hp.
     /// </summary>
     public class Perk2 : Perk
     {
@@ -15,7 +15,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk2.DefaultID;
         
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new(){ {"amt", "3.5%"}, {"missing_hp", "10%"} };
+            => new(){ {"amt", "3.6%"}, {"missing_hp", "10%"} };
 
         private static DamageCallback Callback = new();
         public static Perk2 Instance { get; private set; }
@@ -48,7 +48,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
                     float missingPercent = 1.0f - ((float)entity.CurStats.health / (float)entity.CurStats.maxHealth);
                     stack = (int)(missingPercent * 10.0f);
                 }
-                val.Amount -= (ushort)(val.Amount * 0.035f * stack);
+                val.Amount -= (ushort)(val.Amount * 0.036f * stack);
             }
         }
     }

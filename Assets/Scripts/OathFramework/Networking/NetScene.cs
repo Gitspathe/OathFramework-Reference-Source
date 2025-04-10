@@ -22,19 +22,19 @@ namespace OathFramework.Networking
             writePerm: NetworkVariableWritePermission.Server
         );
         
-        private NetworkVariable<int> netMapSeed = new(
+        private NetworkVariable<uint> netMapSeed = new(
             readPerm: NetworkVariableReadPermission.Everyone,
             writePerm: NetworkVariableWritePermission.Server
         );
 
         private ushort initMapConfig;
-        private int initMapSeed;
+        private uint initMapSeed;
 
         private List<NetClient> pending = new();
         private float curTimeout;
         
         public ushort MapConfig => netMapConfig.Value;
-        public int MapSeed      => netMapSeed.Value;
+        public uint MapSeed     => netMapSeed.Value;
 
         private void Awake()
         {
@@ -66,7 +66,7 @@ namespace OathFramework.Networking
             procGen.NetSceneSpawned(this);
         }
 
-        public void SetValues(MapConfig config, int seed)
+        public void SetValues(MapConfig config, uint seed)
         {
             if(IsServer) {
                 Debug.LogError($"Only the server can set {nameof(NetScene)} values.");

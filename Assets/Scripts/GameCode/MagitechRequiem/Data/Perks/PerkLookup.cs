@@ -30,5 +30,9 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public static LookupValue Perk24 { get; } = new("core:perk24", 24);
         public static LookupValue Perk25 { get; } = new("core:perk25", 25);
         public static LookupValue Perk26 { get; } = new("core:perk26", 26);
+        public static LookupValue Perk27 { get; } = new("core:perk27", 27);
+        public static LookupValue Perk28 { get; } = new("core:perk28", 28);
+        public static LookupValue Perk29 { get; } = new("core:perk29", 29);
+        public static LookupValue Perk30 { get; } = new("core:perk30", 30);
     }
 }

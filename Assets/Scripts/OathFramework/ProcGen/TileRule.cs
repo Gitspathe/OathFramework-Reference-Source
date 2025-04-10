@@ -176,7 +176,7 @@ namespace OathFramework.ProcGen
                 
                 List<(Map.Tile, Direction, MapTile, int)> l = new();
                 TileRuleData ruleData = GetTileRuleData(t, map, layer).StripImpossibleDirections(map, t);
-                if(ruleData == null || ruleData.Variants.Count == 0)
+                if(ruleData == null || !ruleData.IsIncluded || ruleData.Variants.Count == 0)
                     return;
 
                 foreach(Variant v in ruleData.Variants) {

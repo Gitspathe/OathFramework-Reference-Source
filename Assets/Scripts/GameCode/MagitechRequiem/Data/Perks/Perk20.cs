@@ -11,7 +11,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
 {
     /// <summary>
     /// Unnamed
-    /// Killing an enemy grants a 3% damage bonus. Stacks 5 times and has a 1.25 second duration.
+    /// Killing an enemy grants a 3% damage bonus. Stacks 5 times and has a 1.3 second duration.
     /// </summary>
     public class Perk20 : Perk
     {
@@ -19,7 +19,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override ushort? DefaultID => PerkLookup.Perk20.DefaultID;
 
         public override Dictionary<string, string> GetLocalizedParams(Entity entity) 
-            => new() { { "amt", "3" }, { "max_stacks", "5" }, { "duration", "1.25" } };
+            => new() { { "amt", "3" }, { "max_stacks", "5" }, { "duration", "1.3" } };
 
         private Callback callback;
         
@@ -74,7 +74,7 @@ namespace GameCode.MagitechRequiem.Data.Perks
         public override string LookupKey     => StateLookup.Perk20State.Key;
         public override ushort? DefaultID    => StateLookup.Perk20State.DefaultID;
         public override ushort MaxValue      => 5;
-        public override float? MaxDuration   => 1.5f;
+        public override float? MaxDuration   => 1.3f;
         public override bool NetSync         => true;
         public override bool PersistenceSync => true;
 

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using OathFramework.Core;
+using OathFramework.Data.StatParams;
 using OathFramework.EntitySystem;
 using OathFramework.EntitySystem.Actions;
 using OathFramework.Persistence;
@@ -363,10 +364,11 @@ namespace OathFramework.AbilitySystem
                     return;
                 }
                 
-                queuedAbility = ability;
+                float speedMult = Entity.CurStats.GetParam(AbilityUseSpeedMult.Instance);
+                queuedAbility   = ability;
                 actionAbility.OnInvoked(Entity, !IsOwner, false);
                 Callbacks.Access.OnAbilityInvoked(accessToken, queuedAbility, !IsOwner);
-                action.SetParams(this, @params);
+                action.SetParams(this, @params, speedMult);
                 Entity.Actions.InvokeAction(action, !IsOwner);
                 if(IsOwner) {
                     ActivateAbilityNotOwnerRpc(ability.ID);

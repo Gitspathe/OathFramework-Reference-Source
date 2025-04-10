@@ -55,6 +55,9 @@ namespace OathFramework.EntitySystem.States
             Register<Perk22State>();
             Register<Perk23State>();
             Register<Perk26State>();
+            Register<Perk28State>();
+            Register<Perk29State>();
+            Register<Perk30State>();
             return UniTask.CompletedTask;
         }
 

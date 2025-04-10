@@ -34,7 +34,6 @@ namespace OathFramework.Core.Service
 
         private List<(NetClient, float)> pendingRespawns = new();
         private List<PlayerSpawn> spawnAreas             = new();
-        //private DeathCamController deathCam;
 
         public LayerMask SpawnCheckMask   => spawnCheckMask;
         public LayerMask SpawnBlockMask   => spawnBlockMask;
@@ -46,6 +45,8 @@ namespace OathFramework.Core.Service
         public float CurrentRedeployCooldown { get; private set; }
         public bool RedeployInCooldown => CurrentRedeployCooldown > 0.001f;
         
+        public static int CurSpawnAreasCount => Instance.spawnAreas.Count;
+        
         public static PlayerSpawnService Instance { get; private set; }
 
         public PlayerSpawnService Initialize()
@@ -54,13 +55,20 @@ namespace OathFramework.Core.Service
                 Debug.LogError($"Attempted to initialize multiple {nameof(PlayerSpawnService)} singletons.");
                 return null;
             }
-
-            //deathCam = Instantiate(deathCamPrefab, transform).GetComponent<DeathCamController>();
-            //deathCam.gameObject.SetActive(false);
-
+            
             Instance = this;
             GameCallbacks.Register((IResetGameStateCallback)this);
             return Instance;
+        }
+
+        public void Register(PlayerSpawn playerSpawn)
+        {
+            spawnAreas.Add(playerSpawn);
+        }
+
+        public void Unregister(PlayerSpawn playerSpawn)
+        {
+            spawnAreas.Remove(playerSpawn);
         }
 
         private void Update()
@@ -81,38 +89,12 @@ namespace OathFramework.Core.Service
             }
         }
 
-        public void ShowDeathCam(Transform target)
-        {
-            //deathCam.Setup(target);
-        }
-
-        public void HideDeathCam()
-        {
-            //deathCam.gameObject.SetActive(false);
-        }
-
         public void QueueRespawn(NetClient client, float respawnDelay)
         {
             if(!NetGame.Manager.IsServer)
                 return;
 
             pendingRespawns.Add((client, respawnDelay));
-        }
-
-        public void FindSpawnAreas()
-        {
-            spawnAreas.Clear();
-            GameObject spawnParent = SceneScript.Main.SpawnsParent;
-            if(spawnParent == null) {
-                Debug.LogError("Could not initialize player spawns. Ensure there is a GameObject titled '_SPAWNS' in the scene.");
-                return;
-            }
-
-            foreach (PlayerSpawn area in spawnParent.GetComponentsInChildren<PlayerSpawn>()) {
-                if(area.gameObject.activeInHierarchy) { 
-                    spawnAreas.Add(area);
-                }
-            }
         }
 
         public void Redeployed()
@@ -162,10 +144,7 @@ namespace OathFramework.Core.Service
             if(GlobalNetInfo.UsingSnapshot && ProxyDatabase<PlayerProxyComponent>.TryGetProxy(client.UniqueID, out PlayerProxyComponent proxy)) {
                 player.GetComponent<PersistentObject>().AssignFromProxy(proxy);
             }
-            if(client.IsOwner) {
-                //UIScript.Instance.HideDeathUI();
-                HideDeathCam();
-            } else {
+            if(!client.IsOwner) {
                 player.Entity.InitStatsForLateClient();
             }
             player.Entity.OnNetInitializationComplete();
@@ -174,10 +153,6 @@ namespace OathFramework.Core.Service
 
         public void OnPlayerDeath(NetClient client)//, DamageValue lastDamageVal)
         {
-            //if (NetGame.Manager.IsServer) {
-            //    QueueRespawn(client, respawnDelay);
-            //    client.LifeState = PlayerLifeState.Dead;
-            //}
             GameCallbacks.Access.OnPlayerDeath(Game.AccessToken, client);
         }
 
@@ -185,8 +160,6 @@ namespace OathFramework.Core.Service
         {
             ResetRedeployCooldown();
             pendingRespawns.Clear();
-            HideDeathCam();
-            //UIScript.Instance.HideDeathUI();
         }
 
         void IResetGameStateCallback.OnResetGameState()

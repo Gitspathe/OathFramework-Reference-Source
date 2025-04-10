@@ -20,7 +20,7 @@ namespace OathFramework.Core
         protected override async UniTask IntegrateSelf()
         {
             if(NetGame.IsServer) {
-                NetGame.Instance.CreateNetScene(testConf, FRandom.Cache.Int());
+                NetGame.Instance.CreateNetScene(testConf, FRandom.Cache.UInt());
             }
             while(NetScene == null) {
                 await UniTask.Yield();

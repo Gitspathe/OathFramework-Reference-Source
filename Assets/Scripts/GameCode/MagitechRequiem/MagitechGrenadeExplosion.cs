@@ -41,7 +41,7 @@ namespace GameCode.MagitechRequiem
             Vector3 scale                  = Vector3.one;
             float radius                   = baseRadius;
             DamageValue val = new(
-                260,
+                325,
                 source.transform.position,
                 DamageSource.Explosion,
                 StaggerStrength.Medium,

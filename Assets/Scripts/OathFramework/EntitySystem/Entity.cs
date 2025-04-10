@@ -190,6 +190,16 @@ namespace OathFramework.EntitySystem
                 syncHealth = false;
             }
             
+            HandleStamina();
+            if(!IsOwner && IsPlayer) {
+                // Non-owner needs better health sync, if entity is a player.
+                CurStats.health  = netHealth.Value;
+                CurStats.stamina = netStamina.Value;
+            }
+        }
+
+        private void HandleStamina()
+        {
             // Stamina regen.
             timeSinceStaminaUse += Time.deltaTime;
             if(CurStats.stamina == CurStats.maxStamina || timeSinceStaminaUse < CurStats.GetParam(StaminaRegenDelay.Instance))

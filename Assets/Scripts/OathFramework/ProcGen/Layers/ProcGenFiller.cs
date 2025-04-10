@@ -83,7 +83,7 @@ namespace OathFramework.ProcGen.Layers
             ruleData   = null;
             tileConfig = null;
             direction  = Direction.North;
-            WeightedRandom<(MapTile, Direction, TileRuleData)> randVal = new();
+            WeightedRandom<(MapTile, Direction, TileRuleData)> randVal = new(rand);
             foreach(TileRule rule in TileRules) {
                 if(!rule.TryRetrieveNext(rand, tile, map, this, out tileConfig, out direction, out ruleData, replace))
                     continue;
@@ -110,7 +110,7 @@ namespace OathFramework.ProcGen.Layers
             tileConfig  = null;
             newTileSpot = null;
             direction   = Direction.North;
-            WeightedRandom<(MapTile, Map.Tile, Direction, TileRuleData)> randVal = new();
+            WeightedRandom<(MapTile, Map.Tile, Direction, TileRuleData)> randVal = new(rand);
             foreach(TileRule rule in TileRules) {
                 if(!rule.TryRetrieveNextEx(rand, tile, map, this, out tileConfig, out newTileSpot, out direction, out ruleData))
                     continue;
@@ -221,7 +221,7 @@ namespace OathFramework.ProcGen.Layers
                 int checkX = tile.X + (stepX * rotatedWidth);
                 int checkY = tile.Y + (stepY * rotatedHeight);
                 Map.Tile nextTile = map.GetTile(checkX, checkY);
-                if(nextTile != null && !visited.Contains(nextTile)) {
+                if(nextTile != null && nextTile.IsNull && !visited.Contains(nextTile)) {
                     ExecNodeIteration(branchDir, nextTile);
                 }
             }

@@ -21,27 +21,27 @@ namespace OathFramework.EntitySystem.Actions
         
         [field: Header("Mechanical Params")]
         
-        [field: SerializeField] public int IFrames               { get; private set; } = 30;
-        [field: SerializeField] public int DurationFrames        { get; private set; } = 60;
-        [field: SerializeField] public float UncontrollableRatio { get; private set; } = 0.9f;
-        [field: SerializeField] public bool ApplyModifiers       { get; private set; } = true;
-        [field: SerializeField] public bool AffectMelee          { get; private set; } = true;
-        [field: SerializeField] public bool AffectProjectile     { get; private set; } = true;
-        [field: SerializeField] public HitBoxGroups HitBoxGroups { get; private set; } = HitBoxGroups.Group1;
+        [field: SerializeField] public int IFrames                   { get; private set; } = 30;
+        [field: SerializeField] public int DurationFrames            { get; private set; } = 60;
+        [field: SerializeField] public float UncontrollableRatio     { get; private set; } = 0.9f;
+        [field: SerializeField] public bool ApplyModifiers           { get; private set; } = true;
+        [field: SerializeField] public bool AffectMelee              { get; private set; } = true;
+        [field: SerializeField] public bool AffectProjectile         { get; private set; } = true;
+        [field: SerializeField] public HitBoxGroups HitBoxGroups     { get; private set; } = HitBoxGroups.Group1;
 
         [field: Space(10)]
         
-        [field: SerializeField] public float Speed               { get; private set; } = 5.0f;
-        [field: SerializeField] public AnimationCurve Motion     { get; private set; }
+        [field: SerializeField] public float Speed                   { get; private set; } = 5.0f;
+        [field: SerializeField] public AnimationCurve Motion         { get; private set; }
         
         [field: Header("Animation")]
         
-        [field: SerializeField] public int AnimIndex            { get; private set; }
-        [field: SerializeField] public float AnimDuration       { get; private set; } = 1.0f;
-        [field: SerializeField] public string AnimatorDodge     { get; private set; } = "Dodge";
-        [field: SerializeField] public string AnimatorSpeed     { get; private set; } = "DodgeSpeed";
-        [field: SerializeField] public string AnimatorIndex     { get; private set; } = "DodgeIndex";
-        [field: SerializeField] public string AnimatorDirection { get; private set; } = "DodgeDirection";
+        [field: SerializeField] public int AnimIndex                 { get; private set; }
+        [field: SerializeField] public float AnimDuration            { get; private set; } = 1.0f;
+        [field: SerializeField] public string AnimatorDodge          { get; private set; } = "Dodge";
+        [field: SerializeField] public string AnimatorSpeed          { get; private set; } = "DodgeSpeed";
+        [field: SerializeField] public string AnimatorIndex          { get; private set; } = "DodgeIndex";
+        [field: SerializeField] public string AnimatorDirection      { get; private set; } = "DodgeDirection";
         
         [field: Space(5)]
         
@@ -110,6 +110,7 @@ namespace OathFramework.EntitySystem.Actions
             int count = tmpHitBoxes.Count;
             for(int i = 0; i < count; i++) {
                 HitBox hitBox = tmpHitBoxes.Array[i];
+                hitBox.IsDodging = true;
                 if(AffectMelee) {
                     hitBox.IgnoreMelee = true;
                 }
@@ -129,7 +130,6 @@ namespace OathFramework.EntitySystem.Actions
                 float speed = ApplyModifiers ? Speed * Entity.CurStats.GetParam(DodgeSpeedMult.Instance) : Speed;
                 HandleMotion(CurDirection * (speed * Motion.Evaluate(ratio)));
             }
-
             if(isInvincible && CurTime > InvincibleDuration) {
                 Entity.EntityModel.GetHitBoxes(HitBoxGroups, tmpHitBoxes);
                 int count = tmpHitBoxes.Count;
