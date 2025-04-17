@@ -3,6 +3,7 @@ This repo is for public access to the code of OathFramework and Magitech Requiem
 If you want to compile your own version, the following assets and changes are needed:
 - MicroSplat and MicroSplat for URP 2022.3
 - FinalIK
+- OdinInspector (not technically required, but makes working with SerializeReference much easier)
 - Basic replacement for "Scripts/OathFramework/Core/SupporterDLCUtil.cs", which is excluded due to containing secrets. (see below)
 - Various misc. assets which are not important. Code referencing these can be deleted without breaking major functionality.
 
